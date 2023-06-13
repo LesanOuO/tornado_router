@@ -2,7 +2,7 @@ import os
 import tornado.web
 import tornado.httpserver
 
-from tornado_router import GloabelRouter
+from tornado_router_plus import GloabelRouter
 
 
 def main():

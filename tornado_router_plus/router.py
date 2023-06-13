@@ -4,6 +4,8 @@ import os
 import traceback
 import tornado
 
+from tornado.web import RequestHandler
+
 
 class Router():
 
@@ -44,9 +46,9 @@ class Router():
         return json_request
 
     def route(self, url=None, method='get', auth=False, json=True, xsrf=True):
-        if method.upper() not in tornado.web.RequestHandler.SUPPORTED_METHODS:
+        if method.upper() not in RequestHandler.SUPPORTED_METHODS:
             raise ValueError('invalid HTTP method {} found! tornado only supports HTTP methods in {}'.format(
-                method, tornado.web.RequestHandler.SUPPORTED_METHODS))
+                method, RequestHandler.SUPPORTED_METHODS))
 
         def req_wrap(f):
             if not self._base_handler:
@@ -86,13 +88,13 @@ class Router():
         return req_wrap
 
 
-class BaseHandler(tornado.web.RequestHandler):
+class BaseHandler(RequestHandler):
 
     def data_received(self, chunk):
         pass
 
     def __init__(self, application, request, **kwargs):
-        tornado.web.RequestHandler.__init__(self, application, request, **kwargs)
+        RequestHandler.__init__(self, application, request, **kwargs)
 
         if self.settings['allow_remote_access']:
             self.allow_remote_access()

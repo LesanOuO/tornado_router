@@ -1,4 +1,4 @@
-from tornado_router import GloabelRouter
+from tornado_router_plus import GloabelRouter
 
 
 @GloabelRouter.route(method='get', url='/', auth=True)
